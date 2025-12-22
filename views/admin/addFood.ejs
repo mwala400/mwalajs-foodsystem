@@ -1,0 +1,37 @@
+<h3 class="mb-4">Admin – Add Food</h3>
+
+<div class="card p-4 shadow">
+  <form method="POST" action="/admin/add-food" enctype="multipart/form-data">
+
+    <input class="form-control mb-2" name="name" placeholder="Food Name" required>
+
+    <select name="category" class="form-control mb-2">
+      <option>Main Meal</option>
+      <option>Snack</option>
+      <option>Drink</option>
+    </select>
+
+    <select name="allowed_religion" class="form-control mb-2">
+      <option value="all">All Religions</option>
+      <option>Muslim</option>
+      <option>Christian</option>
+      <option>Adventist</option>
+    </select>
+
+    <select name="allowed_tribe" class="form-control mb-2">
+      <option value="all">All Tribes</option>
+      <option>Sukuma</option>
+      <option>Maasai</option>
+      <option>Nyakyusa</option>
+      <option>Makonde</option>
+      <option>Malila</option>
+      <option>Safwa</option>
+    </select>
+
+    <input type="number" name="min_age" class="form-control mb-2" placeholder="Minimum Age">
+
+    <input type="file" name="image" class="form-control mb-3" required>
+
+    <button class="btn btn-success w-100">Add Food</button>
+  </form>
+</div>

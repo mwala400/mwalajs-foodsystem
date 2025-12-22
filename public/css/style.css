@@ -1,0 +1,21 @@
+body {
+  background: #f5f7fa;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.card {
+  border-radius: 15px;
+}
+
+.food-card {
+  margin-bottom: 20px;
+  transition: transform 0.3s;
+}
+
+.food-card:hover {
+  transform: scale(1.03);
+}
+
+footer {
+  font-size: 14px;
+}

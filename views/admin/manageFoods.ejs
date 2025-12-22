@@ -1,0 +1,133 @@
+
+<h3 class="mb-4">Admin – Manage Foods</h3>
+
+<div class="mb-3">
+  <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addFoodModal">Add Food</button>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Category</th>
+      <th>Religion</th>
+      <th>Tribe</th>
+      <th>Min Age</th>
+      <th>Image</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% foods.forEach(food => { %>
+      <tr>
+        <td><%= food.name %></td>
+        <td><%= food.category %></td>
+        <td><%= food.allowed_religion %></td>
+        <td><%= food.allowed_tribe %></td>
+        <td><%= food.min_age %></td>
+        <td>
+          <% if(food.image){ %>
+            <img src="<%= food.image %>" style="width:60px;height:60px;object-fit:cover;">
+          <% } %>
+        </td>
+        <td>
+          <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editFoodModal<%= food.id %>">Edit</button>
+          <a href="/admin/delete-food/<%= food.id %>" class="btn btn-danger btn-sm" onclick="return confirm('Delete this food?')">Delete</a>
+        </td>
+      </tr>
+
+      <!-- Edit Modal -->
+      <div class="modal fade" id="editFoodModal<%= food.id %>" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <form method="POST" action="/admin/edit-food/<%= food.id %>" enctype="multipart/form-data">
+              <div class="modal-header">
+                <h5 class="modal-title">Edit Food</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+              <div class="modal-body">
+                <input type="text" name="name" class="form-control mb-2" value="<%= food.name %>" required>
+                <select name="category" class="form-control mb-2 select2">
+                  <option>Main Meal</option>
+                  <option>Snack</option>
+                  <option>Drink</option>
+                </select>
+                <select name="allowed_religion" class="form-control mb-2 select2">
+                  <option value="all">All Religions</option>
+                  <option>Muslim</option>
+                  <option>Christian</option>
+                  <option>Adventist</option>
+                </select>
+                <select name="allowed_tribe" class="form-control mb-2 select2">
+                  <option value="all">All Tribes</option>
+                  <option>Sukuma</option>
+                  <option>Maasai</option>
+                  <option>Nyakyusa</option>
+                  <option>Makonde</option>
+                  <option>Malila</option>
+                  <option>Safwa</option>
+                </select>
+                <input type="number" name="min_age" class="form-control mb-2" value="<%= food.min_age %>">
+                <input type="file" name="image" class="form-control mb-2">
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Update</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+    <% }) %>
+  </tbody>
+</table>
+
+<!-- Add Modal -->
+<div class="modal fade" id="addFoodModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form method="POST" action="/admin/add-food" enctype="multipart/form-data">
+        <div class="modal-header">
+          <h5 class="modal-title">Add Food</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <input class="form-control mb-2" name="name" placeholder="Food Name" required>
+          <select name="category" class="form-control mb-2 select2">
+            <option>Main Meal</option>
+            <option>Snack</option>
+            <option>Drink</option>
+          </select>
+          <select name="allowed_religion" class="form-control mb-2 select2">
+            <option value="all">All Religions</option>
+            <option>Muslim</option>
+            <option>Christian</option>
+            <option>Adventist</option>
+          </select>
+          <select name="allowed_tribe" class="form-control mb-2 select2">
+            <option value="all">All Tribes</option>
+            <option>Sukuma</option>
+            <option>Maasai</option>
+            <option>Nyakyusa</option>
+            <option>Makonde</option>
+            <option>Malila</option>
+            <option>Safwa</option>
+          </select>
+          <input type="number" name="min_age" class="form-control mb-2" placeholder="Minimum Age">
+          <input type="file" name="image" class="form-control mb-2" required>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">Add Food</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('.select2').forEach(el=>{ 
+    $(el).select2({ dropdownParent: $(el).closest('.modal') });
+  });
+</script>

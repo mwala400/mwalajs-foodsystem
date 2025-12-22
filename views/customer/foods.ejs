@@ -1,0 +1,27 @@
+
+<h3 class="mb-4">Recommended Foods For You, <%= user.name %>!</h3>
+
+<div class="row">
+  <% if(foods.length === 0){ %>
+    <div class="col-12">
+      <div class="alert alert-warning">No foods available for your preferences yet.</div>
+    </div>
+  <% } %>
+
+  <% foods.forEach(food => { %>
+    <div class="col-md-4 mb-3">
+      <div class="card food-card shadow-sm h-100">
+        <% if(food.image){ %>
+          <img src="<%= food.image %>" class="card-img-top" style="height:200px;object-fit:cover;">
+        <% } %>
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title"><%= food.name %></h5>
+          <p class="badge bg-info mb-2"><%= food.category %></p>
+          <p class="text-muted mb-2">Min Age: <%= food.min_age %></p>
+          <p class="text-muted mb-2">Religion: <%= food.allowed_religion %></p>
+          <p class="text-muted mb-2">Tribe: <%= food.allowed_tribe %></p>
+        </div>
+      </div>
+    </div>
+  <% }) %>
+</div>
