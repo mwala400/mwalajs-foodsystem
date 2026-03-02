@@ -1,8 +1,8 @@
 import bcrypt from 'bcrypt';
-import { createUser, findUserByEmail } from '../models/User.js';
+import { createUser, findUserByEmail } from '../models/User.mjs';
 
-export const showLogin = (req, res) => res.render('auth/login');
-export const showRegister = (req, res) => res.render('auth/register');
+export const showLogin = (req, res) => res.render('auth/login', { page: 'login' });
+export const showRegister = (req, res) => res.render('auth/register', { page: 'register' });
 
 export const register = async (req, res) => {
   try {

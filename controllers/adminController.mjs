@@ -1,4 +1,4 @@
-import { addFood as addFoodModel, getAllFoods, updateFood, deleteFood, getFoodById } from '../models/Food.js';
+import { addFood as addFoodModel, getAllFoods, updateFood, deleteFood, getFoodById } from '../models/Food.mjs';
 import multer from 'multer';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -25,7 +25,7 @@ export const upload = multer({ storage });
 export const showManageFoods = async (req, res) => {
   try {
     const foods = await getAllFoods();
-    res.render('admin/manageFoods', { foods });
+    res.render('admin/manageFoods', { foods, page: 'manage-foods' });
   } catch (err) {
     res.send('Error loading foods');
   }
@@ -33,7 +33,7 @@ export const showManageFoods = async (req, res) => {
 
 // Show Add Food Form
 export const showAddFood = (req, res) => {
-  res.render('admin/addFood');
+  res.render('admin/addFood', { page: 'add-food' });
 };
 
 // Add Food

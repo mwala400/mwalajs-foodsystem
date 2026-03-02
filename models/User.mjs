@@ -1,4 +1,4 @@
-import db from '../db.js';
+import db from '../db.mjs';
 
 export const createUser = (data, cb) => {
   const sql = 'INSERT INTO users SET ?';

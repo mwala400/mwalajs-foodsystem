@@ -1,7 +1,7 @@
-import express from 'express';
-import { showLogin, showRegister, register, login, logout } from '../controllers/authController.js';
+import mwalajs from 'mwalajs';
+import { showLogin, showRegister, register, login, logout } from '../controllers/authController.mjs';
 
-const router = express.Router();
+const router = mwalajs.Router();
 
 router.get('/login', showLogin);
 router.post('/login', login);

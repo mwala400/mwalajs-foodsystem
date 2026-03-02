@@ -1,27 +1,162 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vyakula Vinavyopendekezwa</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body class="bg-light">
 
-<h3 class="mb-4">Recommended Foods For You, <%= user.name %>!</h3>
-
-<div class="row">
-  <% if(foods.length === 0){ %>
-    <div class="col-12">
-      <div class="alert alert-warning">No foods available for your preferences yet.</div>
-    </div>
-  <% } %>
-
-  <% foods.forEach(food => { %>
-    <div class="col-md-4 mb-3">
-      <div class="card food-card shadow-sm h-100">
-        <% if(food.image){ %>
-          <img src="<%= food.image %>" class="card-img-top" style="height:200px;object-fit:cover;">
-        <% } %>
-        <div class="card-body d-flex flex-column">
-          <h5 class="card-title"><%= food.name %></h5>
-          <p class="badge bg-info mb-2"><%= food.category %></p>
-          <p class="text-muted mb-2">Min Age: <%= food.min_age %></p>
-          <p class="text-muted mb-2">Religion: <%= food.allowed_religion %></p>
-          <p class="text-muted mb-2">Tribe: <%= food.allowed_tribe %></p>
+  <!-- Fixed / Sticky Hero Header -->
+  <header class="sticky-top shadow-lg z-3">
+    <div class="text-center py-3 px-3 rounded-bottom-4" 
+         style="background: linear-gradient(135deg, #28a745 0%, #198754 100%);
+                color: white;">
+      <div class="container">
+        <h2 class="display-6 fw-bold mb-2 fs-3 fs-md-2">
+          Karibu, <%= user.name %>! 🍲
+        </h2>
+        <p class="lead mb-2 fs-6" style="opacity: 0.95;">
+          Hii ni orodha ya vyakula vilivyopendekezwa kwako kulingana na:
+        </p>
+        <div class="d-flex justify-content-center gap-3 gap-md-4 flex-wrap">
+          <span class="badge bg-light text-dark fs-6 px-3 py-2">
+            Kabila: <%= user.tribe %>
+          </span>
+          <span class="badge bg-light text-dark fs-6 px-3 py-2">
+            Dini: <%= user.religion %>
+          </span>
+          <span class="badge bg-light text-dark fs-6 px-3 py-2">
+            Umri: <%= user.age %>+
+          </span>
         </div>
       </div>
     </div>
-  <% }) %>
-</div>
+  </header>
+
+  <!-- Main Content - Inaanza chini ya header -->
+  <main class="container py-5 mt-2">
+    <!-- Foods Grid -->
+    <% if(foods.length === 0){ %>
+      <div class="text-center py-5 my-5">
+        <div class="alert alert-warning shadow-sm border-0 rounded-4 p-4 mx-auto" style="max-width: 600px;">
+          <i class="bi bi-emoji-frown fs-1 d-block mb-3 text-warning"></i>
+          <h4>Hakuna vyakula vinavyolingana na mapendeleo yako bado.</h4>
+          <p class="text-muted mb-0">Jaribu kuongeza vyakula zaidi au badilisha mapendeleo yako!</p>
+        </div>
+      </div>
+    <% } else { %>
+      <div class="row g-4">
+        <% foods.forEach(food => { %>
+          <div class="col-md-6 col-lg-4">
+            <div class="card food-card h-100 border-0 shadow overflow-hidden rounded-4 transition-all">
+              
+              <% if(food.image){ %>
+                <div class="position-relative">
+                  <img src="<%= food.image %>" 
+                       class="card-img-top" 
+                       alt="<%= food.name %>"
+                       style="height: 240px; object-fit: cover; transition: transform 0.4s ease;">
+                  <div class="card-img-overlay d-flex align-items-end p-0">
+                    <div class="bg-gradient-to-t from-black/70 to-transparent w-100 p-3">
+                      <h5 class="card-title text-white mb-0 fs-4 fw-bold"><%= food.name %></h5>
+                    </div>
+                  </div>
+                </div>
+              <% } else { %>
+                <div class="bg-light d-flex align-items-center justify-content-center" style="height: 240px;">
+                  <i class="bi bi-cup-straw fs-1 text-muted"></i>
+                </div>
+              <% } %>
+
+              <div class="card-body d-flex flex-column p-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <span class="badge rounded-pill px-3 py-2 fs-6
+                               <%= food.category === 'Main Meal' ? 'bg-success' : 
+                                   food.category === 'Snack' ? 'bg-warning' : 
+                                   'bg-info' %>">
+                    <%= food.category %>
+                  </span>
+                  <% if(food.min_age > 0){ %>
+                    <span class="badge bg-secondary rounded-pill px-3">
+                      Min Age: <%= food.min_age %>
+                    </span>
+                  <% } %>
+                </div>
+
+                <div class="mt-auto">
+                  <div class="small text-muted mb-1">
+                    <i class="bi bi-people-fill me-1"></i> 
+                    Inafaa kwa: <%= food.allowed_religion === 'all' ? 'Dini Zote' : food.allowed_religion %>
+                  </div>
+                  <div class="small text-muted">
+                    <i class="bi bi-globe me-1"></i> 
+                    Kabila: <%= food.allowed_tribe === 'all' ? 'Makabila Yote' : food.allowed_tribe %>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card-footer bg-transparent border-0 p-4 pt-0">
+                <button class="btn btn-outline-success w-100 rounded-pill fw-bold">
+                  <i class="bi bi-heart me-2"></i> Penda
+                </button>
+              </div>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    <% } %>
+  </main>
+
+  <!-- Custom Styles -->
+  <style>
+    .sticky-top {
+      top: 0;
+      z-index: 1000;
+      background: inherit; /* In case of future transparency effects */
+    }
+
+    .food-card {
+      transition: all 0.35s ease;
+      border-radius: 1.5rem !important;
+    }
+    .food-card:hover {
+      transform: translateY(-12px) scale(1.03);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15) !important;
+    }
+    .food-card:hover img {
+      transform: scale(1.08);
+    }
+    .bg-gradient-to-t {
+      background: linear-gradient(to top, rgba(0,0,0,0.75), transparent);
+    }
+    .transition-all {
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+    .badge {
+      font-weight: 600;
+    }
+
+    /* Extra spacing so content doesn't hide under fixed header */
+    main {
+      padding-top: 1rem;
+    }
+
+    @media (max-width: 576px) {
+      header .display-6 {
+        font-size: 1.8rem;
+      }
+      header .lead {
+        font-size: 1rem;
+      }
+    }
+  </style>
+
+  <!-- Bootstrap JS (optional - for any interactive components) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

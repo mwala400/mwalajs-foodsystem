@@ -6,3 +6,5 @@
 /database/*.sqlite
 /database/*.sql
 /public/storage
+
+.automate

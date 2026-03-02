@@ -1,8 +1,8 @@
-import express from 'express';
-import { ensureAuth, ensureAdmin } from '../utils/middleware.js';
-import { showManageFoods, addFood, editFood, deleteFoodController, upload, showAddFood } from '../controllers/adminController.js';
+import mwalajs from 'mwalajs';
+import { ensureAuth, ensureAdmin } from '../utils/middleware.mjs';
+import { showManageFoods, addFood, editFood, deleteFoodController, upload, showAddFood } from '../controllers/adminController.mjs';
 
-const router = express.Router();
+const router = mwalajs.Router();
 
 router.get('/manage-foods', ensureAuth, ensureAdmin, showManageFoods);
 router.get('/add-food', ensureAuth, ensureAdmin, showAddFood);

@@ -1,4 +1,4 @@
-import { getRelevantFoods } from '../models/Food.js';
+import { getRelevantFoods } from '../models/Food.mjs';
 
 /**
  * Customer view foods based on:
@@ -12,7 +12,7 @@ export const viewFoods = async (req, res) => {
     if (!user) return res.redirect('/login');
 
     const foods = await getRelevantFoods(user); // Promise-based
-    res.render('customer/foods', { foods, user });
+    res.render('customer/foods', { foods, user, page: 'foods' });
   } catch (err) {
     console.error(err);
     res.send('Error loading foods');
